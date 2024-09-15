@@ -1,6 +1,18 @@
 from flask import Flask, url_for, redirect
 app=Flask(__name__)
 
+@app.errorhandler(404)
+def not_found(err):
+    return '''
+<!doctype html>
+<html>
+    <body>
+        <h1>404</h1>
+        <div>Нет такой страницы</div>
+    </body>
+</html>
+''', 404
+
 @app.route("/web")
 def web():
     return """<!doctype html>
