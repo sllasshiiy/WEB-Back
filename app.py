@@ -100,3 +100,31 @@ def created():
     </body>
 </html>
 ''',201
+
+@app.route("/")
+@app.route("/index")
+def start():
+    return '''
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title> НГТУ,ФБ,Лабораторные работы </title>
+    </head>
+
+    <body>
+        <header>НГТУ, ФБ, WEB-программирование, часть 2. Список лабораторных
+            <hr>
+        </header>
+
+        <main>
+        <a href="/lab1">Первая лабораторная</a>
+        </main>
+
+        <footer>
+            <hr>
+            &copy;Загородняя Виктория, ФБИ-21, 3 курс,2024</footer>
+    </body>
+</html>
+'''
+
