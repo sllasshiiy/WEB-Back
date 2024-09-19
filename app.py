@@ -19,7 +19,7 @@ def web():
         <html>
             <body>
                <h1>web-сервер на flask</h1>
-               <a href="/author">author</a>
+               <a href="/lab1/author">author</a>
             <body>
         </html>""",200, {
             'X-Server': 'sample',
@@ -106,7 +106,7 @@ def created():
 def start():
     return '''
 <!DOCTYPE html>
-<html>
+<html lang="ru">
     <head>
         <meta charset="UTF-8">
         <title> НГТУ,ФБ,Лабораторные работы </title>
@@ -118,7 +118,7 @@ def start():
         </header>
 
         <main>
-        <a href="/lab1">Первая лабораторная</a>
+        <a href="/">Первая лабораторная</a>
         </main>
 
         <footer>
@@ -127,4 +127,25 @@ def start():
     </body>
 </html>
 '''
-
+@app.route("/lab1")
+def lab1():
+    return '''
+<!DOCTYPE html>
+<html>
+<head>
+        <meta charset="UTF-8">
+        <title>Лабораторная 1</title>
+    </head>
+    <body>
+        <main>
+        <p>Flask — фреймворк для создания веб-приложений на языке
+        программирования Python, использующий набор инструментов
+        Werkzeug, а также шаблонизатор Jinja2. Относится к категории так
+        называемых микрофреймворков — минималистичных каркасов
+        веб-приложений, сознательно предоставляющих лишь самые ба-
+        зовые возможности.</p>
+        <a href="/lab1/web">Корень сайта</a>
+        </main>
+    </body>
+</html>
+'''
