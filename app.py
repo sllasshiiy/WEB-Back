@@ -3,18 +3,20 @@ app=Flask(__name__)
 
 @app.errorhandler(404)
 def not_found(err):
+    tt=url_for("static",filename="cat.jpg")
     return '''
 <!doctype html>
 <html>
     <body>
-        <h1>404</h1>
-        <div>Нет такой страницы</div>
+        <h1 style="font-size:4em; color:red;">404</h1>
+        <div style="font-size:3em; color:green;margin-bottom: 20px;">К сожалению, такой страницы не существует</div>
+        <img src="''' + tt +'''">
     </body>
 </html>
 ''', 404
 
 @app.errorhandler(400)
-def not_found(err):
+def bad_request(err):
     return '''
 <!doctype html>
 <html>
@@ -26,7 +28,7 @@ def not_found(err):
 ''', 400
 
 @app.errorhandler(401)
-def not_found(err):
+def unauthorized(err):
     return '''
 <!doctype html>
 <html>
@@ -38,7 +40,7 @@ def not_found(err):
 ''',401
 
 @app.errorhandler(403)
-def not_found(err):
+def forbidden(err):
     return '''
 <!doctype html>
 <html>
@@ -50,7 +52,7 @@ def not_found(err):
 ''', 403
 
 @app.errorhandler(405)
-def not_found(err):
+def method_not_allowed(err):
     return '''
 <!doctype html>
 <html>
@@ -62,7 +64,7 @@ def not_found(err):
 ''', 405
 
 @app.errorhandler(418)
-def not_found(err):
+def teapot(err):
     return '''
 <!doctype html>
 <html>
@@ -104,14 +106,14 @@ def author():
 
 @app.route('/lab1/oak')
 def oak():
-    path=url_for("static", filename="oak.jpg")
-    path=url_for("static",filename="lab1.css")
+    path=url_for("static", filename="oak1.jpg")
+    t=url_for("static",filename="lab1.css")
     return '''
     <!doctype html>
         <html>
             <body>
                 <h1>Дуб</h1>
-                <img src="''' + path + ''' ">
+                <img src="''' + path +''' ">
             <body>
         </html>
 '''
