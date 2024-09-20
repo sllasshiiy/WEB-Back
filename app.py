@@ -13,6 +13,66 @@ def not_found(err):
 </html>
 ''', 404
 
+@app.errorhandler(400)
+def not_found(err):
+    return '''
+<!doctype html>
+<html>
+    <body>
+        <h1>400</h1>
+        <div>Некорректный запрос</div>
+    </body>
+</html>
+''', 400
+
+@app.errorhandler(401)
+def not_found(err):
+    return '''
+<!doctype html>
+<html>
+    <body>
+        <h1>401</h1>
+        <div>Для доступа к запрашиваему ресурсу требуется аутентификация</div>
+    </body>
+</html>
+''',401
+
+@app.errorhandler(403)
+def not_found(err):
+    return '''
+<!doctype html>
+<html>
+    <body>
+        <h1>403</h1>
+        <div>Доступ к запрошенному ресурсу запрещен</div>
+    </body>
+</html>
+''', 403
+
+@app.errorhandler(405)
+def not_found(err):
+    return '''
+<!doctype html>
+<html>
+    <body>
+        <h1>405</h1>
+        <div>Указанный клиентом метод нельзя применить к текущему ресурсу</div>
+    </body>
+</html>
+''', 405
+
+@app.errorhandler(418)
+def not_found(err):
+    return '''
+<!doctype html>
+<html>
+    <body>
+        <h1>418</h1>
+        <div>Я-чайник</div>
+    </body>
+</html>
+''', 418
+
 @app.route("/lab1/web")
 def web():
     return """<!doctype html>
