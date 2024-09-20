@@ -1,4 +1,4 @@
-from flask import Flask, url_for, redirect
+from flask import Flask, url_for, redirect, render_template_string
 app=Flask(__name__)
 
 @app.errorhandler(404)
@@ -15,65 +15,47 @@ def not_found(err):
 </html>
 ''', 404
 
+@app.route('/error')
+def trigger():
+    return 1/0
+
+@app.errorhandler(500)
+def internal_server_error(error):
+    return render_template_string('''
+        <!doctype html>
+        <html lang="ru">
+        <head>
+            <meta charset="utf-8">
+            <title>Ошибка 500</title>
+        </head>
+        <body>
+            <h1>Внутренняя ошибка сервера (500)</h1>
+            <p>Произошла ошибка на сервере. Пожалуйста, попробуйте позже.</p>
+        </body>
+        </html> '''),500
+if __name__=='__main__':
+    app.run(debug=False)
+
 @app.errorhandler(400)
 def bad_request(err):
-    return '''
-<!doctype html>
-<html>
-    <body>
-        <h1>400</h1>
-        <div>Некорректный запрос</div>
-    </body>
-</html>
-''', 400
+    return "Некорректный запрос", 400
 
 @app.errorhandler(401)
 def unauthorized(err):
-    return '''
-<!doctype html>
-<html>
-    <body>
-        <h1>401</h1>
-        <div>Для доступа к запрашиваему ресурсу требуется аутентификация</div>
-    </body>
-</html>
-''',401
+    return "Для доступа к запрашиваему ресурсу требуется аутентификация",401
 
 @app.errorhandler(403)
 def forbidden(err):
-    return '''
-<!doctype html>
-<html>
-    <body>
-        <h1>403</h1>
-        <div>Доступ к запрошенному ресурсу запрещен</div>
-    </body>
-</html>
-''', 403
+    return "Доступ к запрошенному ресурсу запрещен", 403
 
 @app.errorhandler(405)
 def method_not_allowed(err):
-    return '''
-<!doctype html>
-<html>
-    <body>
-        <h1>405</h1>
-        <div>Указанный клиентом метод нельзя применить к текущему ресурсу</div>
-    </body>
-</html>
-''', 405
+    return "Указанный клиентом метод нельзя применить к текущему ресурсу", 405
+
 
 @app.errorhandler(418)
 def teapot(err):
-    return '''
-<!doctype html>
-<html>
-    <body>
-        <h1>418</h1>
-        <div>Я-чайник</div>
-    </body>
-</html>
-''', 418
+    return "Я-чайник", 418
 
 @app.route("/lab1/web")
 def web():
