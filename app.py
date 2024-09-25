@@ -36,38 +36,93 @@ def internal_server_error(error):
 if __name__=='__main__':
     app.run(debug=False)
 
-@app.errorhandler(400)
-def bad_request(err):
-    return "Некорректный запрос", 400
+@app.route("/400")
+def err_400():
+    return '''
+<!doctype html>
+<html>
+    <body>
+        <h1>400</h1>
+        <p>Некорректный запрос</p>
+    </body>
+<html>
+''', 400
 
-@app.errorhandler(401)
-def unauthorized(err):
-    return "Для доступа к запрашиваему ресурсу требуется аутентификация",401
+@app.route("/402")
+def err_402():
+    return '''
+<!doctype html>
+<html>
+    <body>
+        <h1>402</h1>
+        <p>Зарезервировано в будущем</p>
+    </body>
+<html>
+''', 402
 
-@app.errorhandler(403)
-def forbidden(err):
-    return "Доступ к запрошенному ресурсу запрещен", 403
+@app.route("/401")
+def err_401():
+    return '''
+<!doctype html>
+<html>
+    <body>
+        <h1>401</h1>
+        <p>Для доступа к запрашиваему ресурсу требуется аутентификация</p>
+    </body>
+<html>
+''', 401
 
-@app.errorhandler(405)
-def method_not_allowed(err):
-    return "Указанный клиентом метод нельзя применить к текущему ресурсу", 405
+@app.route("/403")
+def err_403():
+    return '''
+<!doctype html>
+<html>
+    <body>
+        <h1>403</h1>
+        <p>Доступ к запрошенному ресурсу запрещен</p>
+    </body>
+<html>
+''', 403
 
+@app.route("/405")
+def err_405():
+    return '''
+<!doctype html>
+<html>
+    <body>
+        <h1>405</h1>
+        <p>Указанный клиентом метод нельзя применить к текущему ресурсу</p>
+    </body>
+<html>
+''', 405
 
-@app.errorhandler(418)
-def teapot(err):
-    return "Я-чайник", 418
+@app.route("/418")
+def err_418():
+    return '''
+<!doctype html>
+<html>
+    <body>
+        <h1>418</h1>
+        <p>Я-чайник</p>
+    </body>
+<html>
+''', 418
 
 @app.route("/lab1/web")
 def web():
-    return """<!doctype html>
+    cs=url_for('static',filename='lab1.css')
+    return f'''<!doctype html>
         <html>
+        <head>
+        <link rel="stylesheet" type="text/css" href="{cs}">
+        </head>
             <body>
                <h1>web-сервер на flask</h1>
                <a href="/lab1/author">author</a>
-            <body>
-        </html>""",200, {
+            </body>
+        </html>''',200, {
             'X-Server': 'sample',
-            'Content-Type': 'text/plain; charset=utf-8'
+            'Content-Type': 'text/html; charset=utf-8'
             }
 
 @app.route("/lab1/author")
@@ -128,6 +183,7 @@ def reset():
 <html>
     <body>
         Ваш счетчик обновлен: ''' + str(count) + '''
+        <a href="/lab1/counter">Счетчик</a>
     </body>
 <html>
 '''
@@ -151,10 +207,12 @@ def created():
 @app.route("/")
 @app.route("/index")
 def start():
-    return '''
+    g=url_for("static",filename="lab1.css")
+    return f'''
 <!DOCTYPE html>
 <html lang="ru">
     <head>
+        <link rel="stylesheet" type="text/css" href="{g}">
         <meta charset="UTF-8">
         <title> НГТУ,ФБ,Лабораторные работы </title>
     </head>
@@ -176,12 +234,14 @@ def start():
 '''
 @app.route("/lab1")
 def lab1():
-    return '''
+    g=url_for("static",filename="lab1.css")
+    return f'''
 <!DOCTYPE html>
 <html>
 <head>
         <meta charset="UTF-8">
         <title>Лабораторная 1</title>
+        <link rel="stylesheet" type="text/css" href="{g}">
     </head>
     <body>
         <main>
@@ -190,19 +250,28 @@ def lab1():
         программирования Python, использующий набор инструментов
         Werkzeug, а также шаблонизатор Jinja2. Относится к категории так
         называемых микрофреймворков — минималистичных каркасов
-        веб-приложений, сознательно предоставляющих лишь самые ба-
-        зовые возможности.</p>
+        веб-приложений, сознательно предоставляющих лишь самые базовые возможности.</p>
         <a href="/index">Корень сайта</a>
         <h2>Список роутов</h2>
+        <ul>
+            <li><a href="/lab1/author">Страница автора</a></li>
+            <li><a href="/lab1/web">WEB сервер на Flask</a></li>
+            <li><a href="/lab1/oak">Дуб</a></li>
+            <li><a href="/lab1/counter">Счетчик посещений</a></li>
+            <li><a href="/lab1/created">Страница успешного создания</a></li>
+            <li><a href="/lab1/info">Информация</a></li>
+            <li><a href="/lab1/error">Генерация ошибки</a></li>
+            <li><a href="/lab1/zadanee9">Задание 9</a></li>
+        </ul>
         </main>
     </body>
 </html>
 '''
-@app.route("/zadanee9")
+@app.route("/lab1/zadanee9")
 def zadanee9():
     y=url_for("static",filename="lp1.jpg")
     x=url_for("static",filename="lp2.jpg")
-    return """<!doctype html>
+    return '''<!doctype html>
         <html>
             <body>
                 <div>Когда мне было шесть лет, в книге под названием "Правдивые истории", 
@@ -216,7 +285,7 @@ def zadanee9():
                 свою первую картинку. Это был мой рисунок № 1. Вот что я нарисовал:</div>
                 <img src="''' + x +'''">
                 <div>Я показал мое творение взрослым и спросил, не страшно ли им.</div>
-""", 200, {
+''', 200, {
     'Content-Language': 'ru',
     'Age': 20,
     'Date': 'Wed, 20 Oct 2024 14:28:00 GMT'
@@ -229,3 +298,11 @@ def a():
 @app.route('/lab2/a/')
 def a2():
     return 'со слэшем'
+
+flower_list=('роза','тюльпан','незабудка','ромашка')
+@app.route('/lab2/flowers/<int:flower_id>')
+def flowers(flower_id):
+    if flower_id >= len(flower_list):
+        return "такого цветка нет", 404
+    else:
+        return "цветок: "+ flower_list[flower_id]
