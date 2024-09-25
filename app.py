@@ -90,9 +90,12 @@ def author():
 def oak():
     path=url_for("static", filename="oak1.jpg")
     t=url_for("static",filename="lab1.css")
-    return '''
+    return f'''
     <!doctype html>
         <html>
+        <head>
+        <link rel="stylesheet" type="text/css" href="{t}">
+        </head>
             <body>
                 <h1>Дуб</h1>
                 <img src="''' + path +''' ">
@@ -162,7 +165,7 @@ def start():
         </header>
 
         <main>
-        <a href="/">Первая лабораторная</a>
+        <a href="/lab1">Первая лабораторная</a>
         </main>
 
         <footer>
@@ -218,3 +221,11 @@ def zadanee9():
     'Age': 20,
     'Date': 'Wed, 20 Oct 2024 14:28:00 GMT'
 }
+
+@app.route('/lab2/a')
+def a():
+    return 'без слэша'
+
+@app.route('/lab2/a/')
+def a2():
+    return 'со слэшем'
