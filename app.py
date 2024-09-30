@@ -1,4 +1,4 @@
-from flask import Flask, url_for, redirect, render_template_string
+from flask import Flask, url_for, redirect, render_template_string, render_template
 app=Flask(__name__)
 
 @app.errorhandler(404)
@@ -319,3 +319,7 @@ def add_flower(name):
     </body>
 </html>
 '''
+
+@app.route('/lab2/example')
+def example():
+    return render_template('example.html')
