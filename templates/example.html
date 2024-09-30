@@ -3,12 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Загородняя Виктория. {{l1}}</title>
+    <title>
+    {% if name %}
+        {{name}},
+    {% else %} 
+        Анонимус,
+    {% endif %}
+     {{l1}}
+    </title>
     <link rel="stylesheet" href="{{url_for('static',filename='main.css')}}">
 </head>
 <body>
     <header>
-        WEB-программирование, часть 2. {{l1}}
+        WEB-программирование, часть 2. {% if l1 %}Лабораторная работа 2{% endif %}
     </header>
 
     <main>
@@ -16,7 +23,23 @@
     </main>
 
     <footer>
-        &copy; {{name}}, {{group}}, {{k}}, 2024
+        &copy; 
+        {% if name %}
+            {{name}},
+        {% else %} 
+            Анонимус,
+        {% endif %}
+        {% if name %}
+            {{group}},
+        {% else %} 
+            Отчислен,
+        {% endif %} 
+        {% if name %}
+            {{k}},
+        {% else %} 
+            Отчислен,
+        {% endif %} 
+        2024
     </footer>
 </body>
 </html>
