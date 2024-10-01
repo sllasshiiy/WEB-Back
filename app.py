@@ -302,12 +302,16 @@ def a2():
 flower_list=[]
 @app.route('/lab2/add_flower/<name>')
 def add_flower(name):
+    g=url_for("static",filename="main.css")
     if not name:
         return 'Вы не задали имя цветка', 400
     flower_list.append(name)
     return f'''
 <!doctype html>
 <html>
+<header>
+    <link rel="stylesheet" type="text/css" href="{g}">
+    </header>
     <body>
     <h1>Добавлен новый цветок</h1>
     <p>Название нового цветка: {name} </p>
@@ -317,11 +321,15 @@ def add_flower(name):
 '''
 @app.route('/lab2/flowers')
 def show_flowers():
+    g=url_for("static",filename="main.css")
     count=len(flower_list)
     flowers_html=''.join(f'<li>{flower}</li>' for flower in flower_list)
     return f'''
     <!doctype html>
     <html>
+    <header>
+    <link rel="stylesheet" type="text/css" href="{g}">
+    </header>
         <body>
             <h1>Список цветков ({count})</h1>
             <ul>
@@ -333,12 +341,16 @@ def show_flowers():
     '''
 @app.route('/lab2/flowers/<int:flower_id>')
 def get_flower(flower_id):
+    g=url_for("static",filename="main.css")
     if flower_id <0 or flower_id >= len(flower_list):
         return 'Цветок не найден', 404
     flower_name=flower_list[flower_id]
     return f'''
     <!doctype html>
     <html>
+    <header>
+    <link rel="stylesheet" type="text/css" href="{g}">
+    </header>
         <body>
             <h1>Цветок: {flower_name}</h1>
             <p>ID цветка: {flower_id}</p>
@@ -348,10 +360,14 @@ def get_flower(flower_id):
 '''
 @app.route('/lab2/clear_flower_list')
 def clear_flower_list():
+    g=url_for("static",filename="main.css")
     flower_list.clear()
     return f'''
     <!doctype html>
     <html>
+    <header>
+    <link rel="stylesheet" type="text/css" href="{g}">
+    </header>
         <body>
             <h1>Список цветков очищен</h1>
             <a href="/lab2/flowers">Показать список цветков</a>
@@ -384,3 +400,43 @@ def lab2():
 def filters():
     phrase="0 <b>сколько</b> <u>нам</u> <i>открытий</i> чудных..."
     return render_template('filter.html', phrase=phrase)
+
+@app.route('/lab2/calc/<int:a>/<int:b>')
+def calculate(a, b):
+    g=url_for("static",filename="main.css")
+    summation = a + b
+    subtraction = a - b
+    multiplication = a * b
+    division = a / b if b != 0 else 'Деление на ноль!'
+    exponentiation = a ** b
+    return f'''
+    <!doctype html>
+    <html>
+    <header>
+    <link rel="stylesheet" type="text/css" href="{g}">
+    </header>
+        <body>
+            <h1>Результаты операций с {a} и {b}</h1>
+            <ul>
+                <li>Сумма: {summation}</li>
+                <li>Вычитание: {subtraction}</li>
+                <li>Умножение: {multiplication}</li>
+                <li>Деление: {division}</li>
+                <li>Возведение в степень: {exponentiation}</li>
+            </ul>
+            <a href="/lab2/calc/{a}/1">Использовать 1 в качестве второго числа</a>
+        </body>
+    </html>
+    '''
+@app.route('/lab2/calc/')
+def default_calc():
+    g=url_for("static",filename="main.css")
+    return redirect(url_for('calculate', a=1, b=1))
+
+@app.route('/lab2/calc/<int:a>')
+def redirect_to_default(a):
+    g=url_for("static",filename="main.css")
+    return redirect(url_for('calculate', a=a, b=1))
+
+if __name__ == '__main__':
+    app.run(debug=True)
