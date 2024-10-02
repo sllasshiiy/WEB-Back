@@ -394,6 +394,7 @@ def example():
 
 @app.route('/lab2/')
 def lab2():
+    g=url_for("static",filename="main.css")
     return render_template('lab2.html')
 
 @app.route('/lab2/filters')
@@ -454,7 +455,7 @@ books = [
     {"title": "Наследники богов. Огненный трон", "author": "Рик Риордан", "genre": "Фэнтези", "pages": "640"}
 ]
 
-@app.route('/books')
+@app.route('/lab2/books')
 def show_books():
     return render_template('books.html', books=books)
 
@@ -485,6 +486,6 @@ mems=[
         "description": "Хомяк одобряет!"
     }
 ]
-@app.route('/mems')
+@app.route('/lab2/mems')
 def show_mems():
     return render_template('mems.html', mems=mems)
