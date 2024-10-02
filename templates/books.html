@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Список книг</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='main.css')}}">
+    <style>
+        table{
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+        table,td,th{
+            border:1px solid #000000;
+            padding: 8px;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center;">Список книг</h1>
+    <table>
+        <thead>
+        <tr>
+            <th>Название</th>
+            <th>Автор</th>
+            <th>Жанр</th>
+            <th>Количество страниц</th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for book in books %}
+            <tr>
+                <td>{{book.title}}</td>
+                <td>{{book.author}}</td>
+                <td>{{book.genre}}</td>
+                <td>{{book.pages}}</td>
+            </tr>
+            {% endfor %} 
+        </tbody>
+    </table>
+</body>
+</html>
