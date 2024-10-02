@@ -457,4 +457,34 @@ books = [
 @app.route('/books')
 def show_books():
     return render_template('books.html', books=books)
-  
+
+mems=[
+    {
+        "name": "Невдупленыш",
+        "image": "nevdyplensh.jpg",
+        "description": "Поднять-подняли, а вот разбудить забыли"
+    },
+    {
+        "name": "Студенты НГТУ",
+        "image": "students.jpg",
+        "description": "Студенты НГТУ когда? Всегда!"
+    },
+    {
+        "name": "Слепыш",
+        "image": "slepsh.jpg",
+        "description": "Ничего не видит, нужно очки ему прописать"
+    },
+    {
+        "name": "Перваши на мат.анализе",
+        "image": "abababbaababa.jpg",
+        "description": "Ладно, мы были такими же первашами"
+    },
+    {
+        "name": "Крутяк!",
+        "image": "nice.jpg",
+        "description": "Хомяк одобряет!"
+    }
+]
+@app.route('/mems')
+def show_mems():
+    return render_template('mems.html', mems=mems)
