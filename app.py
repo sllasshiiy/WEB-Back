@@ -440,3 +440,21 @@ def redirect_to_default(a):
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+books = [
+    {"title": "Тайная история", "author": "Донна Тартт", "genre": "Роман", "pages": "592"},
+    {"title": "Гордость и предубеждение", "author": "Джейн Остен", "genre": "Зарубежная классика", "pages": "416"},
+    {"title": "ОНО", "author": "Стивен Кинг", "genre": "Ужасы", "pages": "1248"},
+    {"title": "Рога", "author": "Джо Хилл", "genre": "Ужасы", "pages": "448"},
+    {"title": "Мастер и Маргарита", "author": "Михаил Булгаков", "genre": "Роман", "pages": "512"},
+    {"title": "Шестерка Воронов", "author": "Ли Бардуго", "genre": "Фэнтези", "pages": "528"},
+    {"title": "Молчание ягнят", "author": "Томас Харисс", "genre": "Триллер", "pages": "416"},
+    {"title": "Ведьмак. Последнее желание", "author": "Анджей Сапковский", "genre": "Фэнтези", "pages": "320"},
+    {"title": "Ангелы и Демоны", "author": "Дэн Браун", "genre": "Детектив", "pages": "640"},
+    {"title": "Наследники богов. Огненный трон", "author": "Рик Риордан", "genre": "Фэнтези", "pages": "640"}
+]
+
+@app.route('/books')
+def show_books():
+    return render_template('books.html', books=books)
+  
