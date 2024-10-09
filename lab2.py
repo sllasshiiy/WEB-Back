@@ -18,7 +18,7 @@ def add_flower(name):
     g=url_for("static",filename="main.css")
     if not name:
         return 'Вы не задали имя цветка', 400
-    flower_list.lab2end(name)
+    flower_list.append(name)
     return f'''
 <!doctype html>
 <html>
