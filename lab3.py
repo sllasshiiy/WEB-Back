@@ -63,3 +63,33 @@ def pay():
 @lab3.route('/lab3/success')
 def success():
     return render_template('lab3/success.html', price=price)
+
+@lab3.route('/lab3/settings')
+def settings():
+    color = request.form.get('color')
+    background_color = request.form.get('background_color')
+    font_size = request.form.get('font_size')
+    font_weight=request.form.get('font_weight')
+    if color:
+        resp = make_response(redirect('/lab3/settings'))
+        resp.set_cookie('color', color)
+        return resp
+    if background_color:
+        resp = make_response(redirect('/lab3/settings'))
+        resp.set_cookie('background_color', background_color)
+        return resp
+    if font_size:
+        resp = make_response(redirect('/lab3/settings'))
+        resp.set_cookie('font_size', font_size)
+        return resp
+    if font_weight:
+        resp = make_response(redirect('/lab3/settings'))
+        resp.set_cookie('font_weight', font_weight)
+        return resp
+    
+    color = request.cookies.get('color')
+    background_color = request.cookies.get('background_color')
+    font_size = request.cookies.get('font_size')
+    font_weight = request.cookies.get('font_weight')
+    
+    return render_template('lab3/settings.html', color=color, background_color=background_color, font_size=font_size,font_weight=font_weight)
