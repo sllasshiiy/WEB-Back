@@ -122,7 +122,7 @@ def author():
 
 @lab1.route('/lab1/oak')
 def oak():
-    path=url_for("static", filename="oak1.jpg")
+    path=url_for("static", filename="lab1/oak1.jpg")
     t=url_for("static",filename="main.css")
     return f'''
     <!doctype html>
@@ -132,7 +132,7 @@ def oak():
         </head>
             <body>
                 <h1>Дуб</h1>
-                <img src="''' + path +''' ">
+                <img src="{path}">
             <body>
         </html>
 '''
@@ -226,21 +226,21 @@ def lab():
 
 @lab1.route("/lab1/zadanee9")
 def zadanee9():
-    y=url_for("static",filename="lp1.jpg")
-    x=url_for("static",filename="lp2.jpg")
-    return '''<!doctype html>
+    y=url_for("static",filename="lab1/lp1.jpg")
+    x=url_for("static",filename="lab1/lp2.jpg")
+    return f'''<!doctype html>
         <html>
             <body>
                 <div>Когда мне было шесть лет, в книге под названием "Правдивые истории", 
                 где рассказывалось про девственные леса, я увидел однажды удивительную картинку. 
                 На картинке огромная змея - удав - глотала хищного зверя. Вот как это было нарисовано:
                 </div>
-                <img src="''' + y +'''">
+                <img src="{y}">
                 <div>В книге говорилось: "Удав заглатывает свою жертву целиком, не жуя. После этого он 
                 уже не может шевельнуться и спит полгода подряд, пока не переварит пищу".
                 Я много раздумывал о полной приключений жизни джунглей и тоже нарисовал цветным карандашом 
                 свою первую картинку. Это был мой рисунок № 1. Вот что я нарисовал:</div>
-                <img src="''' + x +'''">
+                <img src="{x}">
                 <div>Я показал мое творение взрослым и спросил, не страшно ли им.</div>
 ''', 200, {
     'Content-Language': 'ru',
