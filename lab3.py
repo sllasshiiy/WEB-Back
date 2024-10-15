@@ -157,3 +157,28 @@ def ticket_form():
                                ticket_type=ticket_type)
 
     return render_template('lab3/forma.html')
+
+products = [
+    {"name": "BMW 3 Series", "price": 3500000, "brand": "BMW", "year": 2023},
+    {"name": "BMW 5 Series", "price": 5000000, "brand": "BMW", "year": 2022},
+    {"name": "BMW X5", "price": 6000000, "brand": "BMW", "year": 2021},
+    {"name": "BMW M3", "price": 7500000, "brand": "BMW", "year": 2023},
+    {"name": "BMW Z4", "price": 4000000, "brand": "BMW", "year": 2020},
+    {"name": "BMW М5", "price": 7000000, "brand": "BMW", "year": 2022}
+]
+
+@lab3.route('/lab3/search_products', methods=['GET', 'POST'])
+def search_products():
+    filtered_products = []
+
+    if request.method == 'POST':
+        min_price = request.form.get('min_price', type=int)
+        max_price = request.form.get('max_price', type=int)
+
+        filtered_products = [
+            product for product in products 
+            if (min_price is None or product['price'] >= min_price) and 
+               (max_price is None or product['price'] <= max_price)
+        ]
+
+    return render_template('search.html', products=filtered_products)
