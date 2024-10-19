@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{# номер лабораторной работы: #}
+{% block lab %}Лабораторная работа 3{% endblock %}
+
+{# основной контент: #}
+{%block main%}
+    <h1>Ваш билет</h1>
+    <form>
+    <h1>{{ ticket_type }}</h1>
+    <p>ФИО пассажира: {{ name }}</p>
+    <p>Полка: {{ shelf }}</p>
+    <p>Возраст: {{ age }} лет</p>
+    <p>Пункт выезда: {{ departure }}</p>
+    <p>Пункт назначения: {{ destination }}</p>
+    <p>Дата поездки: {{ travel_date }}</p>
+    <p>Цена билета: {{ price }} руб.</p>
+    <div>
+        <a href="/lab3/ticket_form">Купить еще один билет</a>
+    </div>
+    </form>
+{%endblock%}

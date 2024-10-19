@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+   {# номер лабораторной работы: #}
+   {% block lab %}Лабораторная работа 3{% endblock %}
+
+   {# основной контент: #}
+   {% block main %}
+   <h1>Поиск товаров по цене</h1>
+       <form method="post">
+           <label for="min_price">Минимальная цена:</label>
+           <input type="number" id="min_price" name="min_price">
+           <br>
+           <label for="max_price">Максимальная цена:</label>
+           <input type="number" id="max_price" name="max_price">
+           <br>
+           <input type="submit" value="Искать">
+       </form>
+
+       <h2>Результаты поиска:</h2>
+       <ul>
+           {% for product in products %}
+               <li>{{ product.name }} - {{ product.price }} руб. (Бренд: {{ product.brand }})</li>
+           {% else %}
+               <li>Товаров не найдено.</li>
+           {% endfor %}
+       </ul>
+   {% endblock %}
