@@ -67,25 +67,21 @@ def success():
 
 @lab3.route('/lab3/settings')
 def settings():
-    color = request.form.get('color')
-    background_color = request.form.get('background_color')
-    font_size = request.form.get('font_size')
+    color = request.args.get('color')
+    background_color = request.args.get('background_color')
+    font_size = request.args.get('font_size')
     font_weight=request.form.get('font_weight')
+    resp = make_response(redirect('/lab3/settings'))
     if color:
-        resp = make_response(redirect('/lab3/settings'))
         resp.set_cookie('color', color)
-        return resp
     if background_color:
-        resp = make_response(redirect('/lab3/settings'))
         resp.set_cookie('background_color', background_color)
-        return resp
     if font_size:
-        resp = make_response(redirect('/lab3/settings'))
         resp.set_cookie('font_size', font_size)
-        return resp
     if font_weight:
-        resp = make_response(redirect('/lab3/settings'))
         resp.set_cookie('font_weight', font_weight)
+
+    if color:
         return resp
     
     color = request.cookies.get('color')
@@ -181,4 +177,4 @@ def search_products():
                (max_price is None or product['price'] <= max_price)
         ]
 
-    return render_template('search.html', products=filtered_products)
+    return render_template('lab3/search.html', products=filtered_products)

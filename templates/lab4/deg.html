@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{# номер лабораторной работы: #}
+{% block lab %}Возведение в степень чисел{% endblock %}
+
+{# основной контент: #}
+{%block main%}
+    {% if error %}
+        {{error}}
+    {% else %}
+    <h1>Возведение в степень чисел</h1>
+    {{x1}} ** {{x2}}={{result}}
+    {% endif %}
+    <div>
+        <a href="/lab4/deg-form">Выбрать другие числа</a>
+    </div>
+{%endblock%}
