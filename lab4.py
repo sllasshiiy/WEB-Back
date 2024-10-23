@@ -48,10 +48,12 @@ def mul_form():
 def mul():
     x1=request.form.get('x1')
     x2=request.form.get('x2')
-    x1=int(x1)
-    x2=int(x2)
     if x1=='' or x2=='':
-        x1==1 or x2==1
+        x1=1
+        x2=1
+    else:
+        x1=int(x1)
+        x2=int(x2)
     result=x1*x2
     return render_template('lab4/mul.html',x1=x1,x2=x2, result=result)
 
