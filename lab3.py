@@ -70,7 +70,7 @@ def settings():
     color = request.args.get('color')
     background_color = request.args.get('background_color')
     font_size = request.args.get('font_size')
-    font_weight=request.form.get('font_weight')
+    font_weight=request.args.get('font_weight')
     resp = make_response(redirect('/lab3/settings'))
     if color:
         resp.set_cookie('color', color)
