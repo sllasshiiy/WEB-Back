@@ -175,3 +175,40 @@ def fridge():
             snowflakes = "❄️"
 
     return render_template('/lab4/fridge.html', message=message, snowflakes=snowflakes, temperature=temperature)
+
+prices = {
+    "ячмень": 12345,
+    "овёс": 8522,
+    "пшеница": 8722,
+    "рожь": 14111
+}
+
+@lab4.route('/lab4/zakaz', methods=['GET', 'POST'])
+def zakaz():
+    message = ""
+    if request.method == 'POST':
+        grain = request.form.get('grain')
+        try:
+            weight = float(request.form.get('weight'))
+        except (ValueError, TypeError):
+            message = "Ошибка: вес не был указан или указан неверно."
+            return render_template('/lab4/zakaz.html', message=message)
+
+        if weight <= 0:
+            message = "Ошибка: вес должен быть больше 0."
+            return render_template('/lab4/zakaz.html', message=message)
+        elif weight > 500:
+            message = "Ошибка: такого объёма сейчас нет в наличии."
+            return render_template('/lab4/zakaz.html', message=message)
+
+        total_cost = prices[grain] * weight
+        discount = 0
+
+        if weight > 50:
+            discount = total_cost * 0.10
+            total_cost -= discount
+            message = f"Заказ успешно сформирован. Вы заказали {grain}. Вес: {weight} т. Сумма к оплате: {total_cost:.2f} руб. Применена скидка за большой объём: {discount:.2f} руб."
+        else:
+            message = f"Заказ успешно сформирован. Вы заказали {grain}. Вес: {weight} т. Сумма к оплате: {total_cost:.2f} руб."
+
+    return render_template('/lab4/zakaz.html', message=message)
