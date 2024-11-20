@@ -11,16 +11,22 @@ lab5=Blueprint('lab5',__name__)
 def lab():
     return render_template('lab5/lab5.html',login=session.get('login'))
 def db_connect():
-    conn=psycopg2.connect(
-        host='127.0.0.1',
-        port='5432',
-        database='vika_zag_knowledge_base',
-        user='vika_zagorodnyaya_knowledge_base',
-        password='200890',
-        options="-c client_encoding=UTF8"
-
-    )
-    cur=conn.cursor(cursor_factory=RealDictCursor)
+    if current_ap.config['DB_TYPE']=='postgres':
+        conn=psycopg2.connect(
+            host='127.0.0.1',
+            port='5432',
+            database='vika_zag_knowledge_base',
+            user='vika_zagorodnyaya_knowledge_base',
+            password='200890',
+            options="-c client_encoding=UTF8"
+        )
+        cur=conn.cursor(cursor_factory=RealDictCursor)
+    else:
+        dir_path=path.dirname(path.realpath(__file__))
+        db_path=path.jsoin(dir_path,"database.db")
+        conn=sqlite3.connect(db_path)
+        conn.row_factory=sqlite3.Row
+        cur=conn.cursor()
 
     return conn,cur
 
