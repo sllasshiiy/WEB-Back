@@ -75,13 +75,19 @@ def register():
         return render_template('lab5/register.html',error='Заполните все поля')
     conn,cur=db_connect()
 
-    cur.execute("SELECT login FROM users WHERE login=%s;",(login, ))
+    if current_app.config['DB_TYPE']=='postgres':
+        cur.execute("SELECT login FROM users WHERE login=%s;",(login, ))
+    else:
+        cur.execute("SELECT login FROM users WHERE login=?;",(login, ))
     if cur.fetchone():
         db_close(conn,cur)
         return render_template('lab5/register.html',error="Такой пользователь уже существует")
     
     password_hash=generate_password_hash(password)
-    cur.execute("INSERT INTO users (login,password) VALUES (%s,%s);", (login, password_hash))
+    if current_app.config['DB_TYPE']=='postgres':
+        cur.execute("INSERT INTO users (login,password) VALUES (%s,%s);", (login, password_hash))
+    else:
+        cur.execute("INSERT INTO users (login,password) VALUES (?,?);", (login, password_hash))
     db_close(conn,cur)
     return render_template('lab5/success.html',login=login)
 
@@ -115,10 +121,12 @@ def create():
     article_text=request.form.get('article_text')
 
     conn,cur=db_connect()
+    if current_app.config['DB_TYPE']=='postgres':
+        cur.execute("SELECT * FROM users WHERE login=%s;", (login, ))
+    else:
+        cur.execute("SELECT * FROM users WHERE login=?;", (login, ))
 
-    cur.execute("SELECT * FROM users WHERE login=%s;", (login, ))
     login_id=cur.fetchone()["id"]
-
     cur.execute(f"INSERT INTO articles(user_id,title,article_text)\
                 VALUES ({login_id},'{title}','{article_text}');")
     
