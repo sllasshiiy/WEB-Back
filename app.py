@@ -3,13 +3,23 @@ from lab1 import lab1
 from lab2 import lab2
 from lab3 import lab3
 from lab4 import lab4
-
+from lab5 import lab5
+from lab6 import lab6
+import os
 
 app=Flask(__name__)
+
+app.config['SECRET_KEY']=os.environ.get('SECRET_KEY','Шла Саша по шоссе и сосала сушку')
+app.config['DB_TYPE']=os.getenv('DB_TYPE','postgres')
+app.secret_key='Шла Саша по шоссе и сосала сушку'
+
+
 app.register_blueprint(lab1)
 app.register_blueprint(lab2)
 app.register_blueprint(lab3)
 app.register_blueprint(lab4)
+app.register_blueprint(lab5)
+app.register_blueprint(lab6)
 
 
 @app.errorhandler(404)
@@ -64,12 +74,16 @@ def start():
         </header>
 
         <main>
+        <div class=st>
         <ul>
-        <li><a href="/lab1">Первая лабораторная</a></li>
-        <li><a href="/lab2/">Вторая лабораторная</a></li>
-        <li><a href="/lab3/">Третья лабораторная</a></li>
-        <li><a href="/lab4/">Четвертая лабораторная</a></li>
+        <li><a href="/lab1" style="color:black;text-shadow: 1px 1px 2px rgba(246, 246, 246, 0.875);">Первая лабораторная</a></li>
+        <li><a href="/lab2/" style="color:black;text-shadow: 1px 1px 2px rgba(246, 246, 246, 0.875);">Вторая лабораторная</a></li>
+        <li><a href="/lab3/" style="color:black;text-shadow: 1px 1px 2px rgba(246, 246, 246, 0.875);">Третья лабораторная</a></li>
+        <li><a href="/lab4/" style="color:black;text-shadow: 1px 1px 2px rgba(246, 246, 246, 0.875);">Четвертая лабораторная</a></li>
+        <li><a href="/lab5/" style="color:black;text-shadow: 1px 1px 2px rgba(246, 246, 246, 0.875);">Пятая лабораторная</a></li>
+        <li><a href="/lab6/" style="color:black;text-shadow: 1px 1px 2px rgba(246, 246, 246, 0.875);">Шестая лабораторная</a></li>
         </ul>
+        <div>
         </main>
 
         <footer>
