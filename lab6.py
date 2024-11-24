@@ -49,7 +49,35 @@ def api():
                     'jsonrpc': '2.0',
                     'result':'success',
                     'id': id
-                }        
+                }
+    if data['method']=='cancellation':
+        office_number=data['params']
+        for office in offices:
+            if office['number']==office_number:
+                if office['tenant']=='':
+                    return{
+                        'jsonrpc':'2.0',
+                        'error':{
+                            'code':3,
+                            'message':'Office is not booked'
+                        },
+                        'id':id
+                    }
+                if office['tenant']!=login:
+                    return{
+                        'jsonrpc':'2.0',
+                        'error':{
+                            'code': 4,
+                            'message':'You do not have permission to cancel this booking'
+                        },
+                        'id':id
+                    }
+                office['tenant']=''
+                return{
+                    'jsonrpc':'2.0',
+                    'result': 'success',
+                    'id':id
+                }
     return{
             'jsonrpc': '2.0',
             'error':{
