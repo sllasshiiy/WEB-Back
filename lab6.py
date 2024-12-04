@@ -1,10 +1,16 @@
 from flask import Blueprint, render_template, request, make_response, redirect,session,current_app,url_for
+import psycopg2
+from psycopg2.extras import RealDictCursor
+from werkzeug.security import check_password_hash, generate_password_hash
+import sqlite3 
+import os
+from os import path
 
 lab6=Blueprint('lab6',__name__)
 
 offices=[]
 for i in range(1,11):
-    offices.append({"number": i, "tenat": ""})
+    offices.append({"number": i, "tenant": "", "price":900+i%10})
 
 @lab6.route('/lab6/')
 def main():
@@ -115,7 +121,7 @@ def api():
             },
             'id':id
         }
-    if data['method']=='bokking':
+    if data['method']=='booking':
         office_number=data['params']
         for office in offices:
             if office['number']==office_number:
@@ -124,7 +130,7 @@ def api():
                         'jsonrpc':'2.0',
                         'error':{
                             'code': 2,
-                            'message': 'Already booked'
+                            'message': 'Офис уже занят!'
                         },
                         'id':id
                     }
@@ -157,7 +163,7 @@ def api():
                         },
                         'id':id
                     }
-                office['tenant']=''
+                office['tenant']=""
                 return{
                     'jsonrpc':'2.0',
                     'result': 'success',
