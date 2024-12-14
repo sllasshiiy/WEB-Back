@@ -7,6 +7,7 @@ import os
 from os import path
 from db import db
 from db.models import users, articles
+from flask_login import login_user,login_required, current_user
 
 lab8=Blueprint('lab8',__name__)
 
@@ -35,3 +36,30 @@ def register():
     db.session.add(new_user)
     db.session.commit()
     return redirect('/lab8/')
+
+@lab8.route('/lab8/login',methods=['GET','POST'])
+def login():
+    login_form = None
+    password_form = None
+
+    if request.method=='GET':
+        return render_template('lab8/login.html')
+    
+    if not login_form or not password_form:
+        return render_template('/lab8/login.html', error='Ошибка входа: логин и пароль не могут быть пустыми')
+
+    login_form=request.form.get('login')
+    password_form=request.form.get('password')
+
+    user=users.query.filter_by(login=login_form).first()
+
+    if user:
+        if check_password_hash(user.password,password_form):
+            login_user(user,remember=False)
+            return redirect('/lab8/')
+    return render_template('/lab8/login.html',error='Ошибка входа: логин и/или пароль неверны')
+
+@lab8.route('/lab8/articles/')
+@login_required
+def article_list():
+    return "Список статей"
