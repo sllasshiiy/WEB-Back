@@ -63,3 +63,9 @@ def login():
 @login_required
 def article_list():
     return "Список статей"
+
+@lab8.route('/lab8/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect('/lab8/')
