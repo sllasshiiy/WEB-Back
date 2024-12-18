@@ -9,19 +9,23 @@ tt{
     color: rgb(7, 119, 82);
 }
 div{
-    color: rgb(127, 163, 255);
-    color: #000000;
+    color: #fefdfd;
+    text-shadow: 1px 1px 2px rgb(7, 7, 7); /* Тень для текста */
 }
 body {
     font-family: Arial, sans-serif;
     margin: 0;
-    background-color: rgb(180, 205, 226);
+    color: #f9f3f9;  /* Темный текст для лучшей читаемости */
+    line-height: 1.6; /* Улучшите интерлиньяж */
+    background: linear-gradient(#a960c0, #a07baa);
 }
 
 header {
-    background-color: rgb(125, 183, 231);
-    color: #000000;
-    padding: 20px;
+    background-color: rgba(94, 40, 105, 0.999); /* Более глубокий цвет для заголовка */
+    color: #fefdfd; /* Светлый текст на темном фоне */
+    padding: 25px; /* Увеличение отступов */
+    border-bottom: 3px solid rgb(24, 2, 31); /* Добавление границы */
+    text-shadow: 1px 1px 2px rgba(7, 7, 7, 0.81); /* Тень для текста */
     text-align: center;
 }
 
@@ -31,20 +35,47 @@ header h1 {
 
 main {
     padding: 20px;
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    color: #333;  /* Темный текст для лучшей читаемости */
+    line-height: 1.6; /* Улучшите интерлиньяж */
 }
 
 footer {
-    background-color: rgb(125, 183, 231);
-    color: #000000;
     padding: 20px;
-    text-align: center;
     position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
+    background-color: rgb(94, 40, 105, 0.999); /* Более глубокий цвет для заголовка */
+    color: #fbfbfb; /* Светлый текст на темном фоне */
+    padding: 25px; /* Увеличение отступов */
+    text-shadow: 1px 1px 2px rgb(7, 7, 7); /* Тень для текста */
+    text-align: center;
+    border-bottom: 3px solid rgb(24,2,31); /* Добавление границы */
 }
 .error{
     color: red;
     font-size: larger;
     font-style: oblique;
+}
+a {
+    color: rgb(249, 249, 249); /* Цвет ссылок - черный */
+    text-decoration: none; /* Убираем подчеркивание */
+    text-align: center;
+    margin-top: 20px;
+    text-shadow: 1px 1px 2px rgba(1, 1, 1, 0.875); /* Тень для текста */
+}
+.st{
+    background-color: rgb(242, 227, 241);
+    border: 5px groove rgba(29, 2, 33, 0.914);
+    margin-left: auto;
+    margin-right: auto;
+    width: 18em;    
+    text-align:start;
+}
+h1{
+    color: rgb(255, 255, 255); 
+    text-shadow: 1px 1px 2px rgba(246, 246, 246, 0.875); 
 }

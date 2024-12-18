@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block lab %}Лабораторная работа 5<a href="/"> Меню </a>{% endblock %}
+
+{%block main%}
+    <h1>Статьи</h1>
+    {% for article in articles %}
+        <h2>{{article['title']}}</h2>
+        <blockquote>{{ article['article_text']}}</blockquote>
+        <a href="{{ url_for('lab5.edit', article_id=article.id) }}">Редактировать</a>      
+        <form action="{{ url_for('lab5.delete', article_id=article.id) }}" method="POST" style="display:inline;">
+            <button type="submit" onclick="return confirm('Вы уверены, что хотите удалить эту статью?');">Удалить</button>
+        </form>
+    {% endfor %}
+{%endblock%}

@@ -95,9 +95,9 @@ def tree():
     if operation == 'cut':
         if tree_count >0:
             tree_count -=1
-        elif operation == 'plant':
-            if tree_count < MAX_TREES:  # Проверка, чтобы не превышать максимальное количество деревьев
-                tree_count += 1
+    elif operation == 'plant':
+        if tree_count < max_trees: 
+            tree_count += 1
 
     return redirect('/lab4/tree')
 
@@ -136,7 +136,7 @@ def login():
         if login == user['login'] and password == user['password']:
             session['login'] = login
             name = user['name']
-            return render_template('lab4/login.html', authorized=True, name=name)  # Измените путь на правильный
+            return render_template('lab4/login.html', authorized=True, name=name) 
 
     error = 'Неверные логин или пароль'
     return render_template('lab4/login.html', error=error, authorized=False, login=login)

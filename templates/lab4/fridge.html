@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block lab %}Лабораторная работа 4{% endblock %}
+
+{% block main %}
+    <h1>Настройка температуры холодильника</h1>
+
+    <form style="background-color: #e0f7fa;color: #00796b;font-family: Arial, sans-serif;text-align: center;padding: 50px;" method="post">
+        <label for="temperature">Введите температуру (°С):</label>
+        <input type="number" id="temperature" name="temperature" required>
+        <button type="submit">Установить</button>
+    </form>
+
+    <div style="font-size: 1.5em; font-weight:bold;">{{ message }}</div>
+
+    <div style="font-size: 2em;">
+        {{ snowflakes }}
+    </div>
+    {% if snowflakes %}
+        {% if temperature < -12 %}
+            <img src="{{ url_for('static', filename='pingvin.jpeg') }}" alt="Слишком холодно" width="200px">
+        {% elif temperature > -1 %}
+            <img src="{{ url_for('static', filename='djarko.png') }}" alt="Слишком тепло" width="200px">
+        {% elif -12 <= temperature <= -9 %}
+            <img src="{{ url_for('static', filename='12-9.jpg') }}" alt="Три снежинки" width="200px">
+        {% elif -8 <= temperature <= -5 %}
+            <img src="{{ url_for('static', filename='8-5.jpg') }}" alt="Две снежинки" width="200px">
+        {% elif -4 <= temperature <= -1 %}
+            <img src="{{ url_for('static', filename='4-1.jpg') }}" alt="Одна снежинка" width="200px">
+        {% endif %}
+    {% endif %}
+{% endblock %}

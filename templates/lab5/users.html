@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{# номер лабораторной работы: #}
+{% block lab %}Лабораторная работа 5<a href="/"> Меню </a>{% endblock %}
+
+{# основной контент: #}
+{%block main%}
+    <h1>Зарегистрированные пользователи:</h1>
+    <ul>
+        {% for user in users %}
+            <li>{{ user.login }}</li>
+        {% endfor %}
+    </ul>
+    <a href="{{ url_for('lab5.lab') }}">Назад</a>
+{%endblock%}

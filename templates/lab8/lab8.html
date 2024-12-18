@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{# номер лабораторной работы: #}
+{% block lab %}Лабораторная работа 8<a href="/"> Меню </a>{% endblock %}
+
+{# основной контент: #}
+{%block main%}
+    <h1>Привет, {{login}} </h1>
+    <div>Список сделанных страниц:</div>
+    <ul>
+        <li><a href="/lab8/register">Регистрация</a></li>
+        <li><a href="/lab8/login">Вход</a></li>
+        <li><a href="/lab8/articles">Список статей</a></li>
+        <li><a href="/lab8/create">Создать статью</a></li>
+        <li><a href="/lab8/logout">Выйти из системы</a></li>
+    </ul>
+{%endblock%}

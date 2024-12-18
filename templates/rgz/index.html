@@ -1,0 +1,8 @@
+{% extends 'base_rgz.html' %}
+
+{% block title %}Приветствие{% endblock %}
+
+{% block content %}
+    <h2>Добро пожаловать в Messenger!</h2>
+    <p>Пожалуйста, <a href="/rgz/login">войдите</a> или <a href="{{ url_for('rgz.register') }}">зарегистрируйтесь</a>, чтобы начать общение.</p>
+{% endblock %}

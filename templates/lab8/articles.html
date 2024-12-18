@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block lab %}Лабораторная работа 8<a href="/"> Меню </a>{% endblock %}
+
+<h1>Ваши статьи</h1>
+{% block main %}
+{% if articles %}
+    <ul>
+        {% for article in articles %}
+            <li>
+                <h3>{{ article.title }}</h3>
+                <p>{{ article.article_text }}</p>
+
+                <a href="/lab8/edit/{{ article.id }}" class="button-link">Редактировать</a>
+
+                <form action="/lab8/delete/{{ article.id }}" method="post" style="display:inline;" onsubmit="return confirm('Вы уверены, что хотите удалить эту статью?');">
+                    <button type="submit" class="delete-button">Удалить</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>У вас ещё нет созданных статей.</p>
+{% endif %}
+{% endblock %}

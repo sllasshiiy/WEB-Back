@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block lab %}Лабораторная работа 8<a href="/"> Меню </a>{% endblock %}
+{% block main %}
+
+<h1>Редактировать статью</h1>
+
+<form action="/lab8/edit/{{ article.id }}" method="post">
+    <div>
+        <label for="title">Название статьи:</label>
+        <input type="text" id="title" name="title" value="{{ article.title }}" required>
+    </div>
+
+    <div>
+        <label for="article_text">Текст статьи:</label>
+        <textarea id="article_text" name="article_text" rows="10" required>{{ article.article_text }}</textarea>
+    </div>
+
+    <button type="submit">Сохранить изменения</button>
+</form>
+
+<a href="/lab8/articles" class="button-link">Вернуться к списку статей</a>
+
+{% endblock %}

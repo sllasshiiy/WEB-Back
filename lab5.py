@@ -10,7 +10,7 @@ lab5=Blueprint('lab5',__name__)
 
 @lab5.route('/lab5/')
 def lab():
-    return render_template('lab5/lab5.html',login=session.get('login'))
+    return render_template('lab5/lab5.html',login=session.get('login')) 
 def db_connect():
     if current_app.config['DB_TYPE']=='postgres':
         conn=psycopg2.connect(
