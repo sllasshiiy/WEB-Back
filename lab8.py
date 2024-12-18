@@ -83,6 +83,7 @@ def create_article():
     # Получаем данные из формы
     title = request.form.get('title')
     article_text = request.form.get('article_text')  
+    
 
     if not title or not article_text:
         return render_template('lab8/create.html', error="Название и текст статьи обязательны.")
