@@ -1,6 +1,6 @@
 {% extends "base_rgz.html" %}
 
-{% block lab %}Список пользователей (Администратор){% endblock %}
+{% block lab %}Чат с пользователем{% endblock %}
 
 {% block main %}
 <style>
@@ -9,6 +9,8 @@
         background-color: #f4f4f4;
         margin: 0;
         padding: 0px;
+        height: 100vh; /* Высота на весь экран */
+        overflow: auto; /* Позволяет прокрутку */
     }
 
     h1 {
@@ -20,6 +22,8 @@
     ul {
         list-style-type: none; 
         padding: 0;
+        max-height: calc(100vh - 200px); /* Ограничение высоты списка пользователей */
+        overflow-y: auto; /* Вертикальная прокрутка для списка */
     }
 
     li {
@@ -69,7 +73,7 @@
 
     .logout-container {
         display: flex;
-        justify-content: center; 
+        justify-content: center; /* Центрирование кнопок "Назад" и "Выход" */
         margin-top: 30px; 
     }
 
@@ -82,6 +86,7 @@
         cursor: pointer; 
         text-decoration: none; 
         transition: background-color 0.3s; 
+        margin-right: 15px; /* Отступ между кнопками */
     }
 
     .logout-button:hover {
@@ -104,56 +109,47 @@
         background-color: #218838; 
     }
 
-    .edit-button, .delete-button {
-        padding: 10px 15px;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        text-decoration: none;
-        transition: background-color 0.3s;
-        margin-left: 10px; /* Отступ между кнопками */
+    .delete-account-container {
+        margin-left: auto; /* Сдвигает кнопку удаления вправо */
     }
 
-    .edit-button {
-        background-color: #17a2b8; /* Цвет для кнопки редактирования */
-        color: white;
+    .btn-danger {
+        background-color: #dc3545; /* Цвет фона для кнопки удаления */
+        color: white; 
+        padding: 10px 20px; 
+        border: none; 
+        border-radius: 4px; 
+        cursor: pointer; 
+        transition: background-color 0.3s; 
     }
 
-    .edit-button:hover {
-        background-color: #138496; /* Цвет при наведении для кнопки редактирования */
-    }
-
-    .delete-button {
-        background-color: #dc3545; /* Цвет для кнопки удаления */
-        color: white;
-    }
-
-    .delete-button:hover {
-        background-color: #c82333; /* Цвет при наведении для кнопки удаления */
-    }
-    p{
-        font-size: large;
-        font-family: Arial, Helvetica, sans-serif;
-        padding-left: 25px;
-    }
+    .btn-danger:hover {
+        background-color: #c82333; /* Цвет фона при наведении */
+    }    
 </style>
-<h1>Список пользователей (Администратор)</h1>
-<p>Количество пользователей: {{ users | length }}</p>
+
+<h1>Список пользователей</h1>
 <ul>
     {% for user in users %}
         <li>
             <span class="user-login">{{ user.login }}</span>
-            <a href="{{ url_for('rgz.edit_user', user_id=user.id) }}" class="edit-button">Редактировать</a>
-            <form action="{{ url_for('rgz.delete_user', user_id=user.id) }}" method="POST" style="display:inline;">
-                <button type="submit" class="delete-button" onclick="return confirm('Вы уверены, что хотите удалить этого пользователя?');">Удалить</button>
+            <form action="{{ url_for('rgz.send_message', receiver_id=user.id) }}" method="POST">
+                <input type="text" name="content" placeholder="Введите сообщение" required>
+                <button type="submit">Отправить</button>
             </form>
         </li>
-    {% else %}
-        <li>Нет пользователей для отображения.</li>
     {% endfor %}
 </ul>
+
 <div class="logout-container">
+    <a class="back-button" href="{{ url_for('rgz.messages_list') }}">Назад в чат</a>
     <a class="logout-button" href="{{ url_for('rgz.logout') }}">Выход</a>
+    <div class="delete-account-container">
+        <form action="{{ url_for('rgz.delete_account') }}" method="POST" style="display:inline;">
+            <button type="submit" class="btn btn-danger" onclick="return confirm('Вы уверены, что хотите удалить свой аккаунт? Это действие необратимо.');">Удалить аккаунт</button>
+        </form>
+    </div>
 </div>
+
 <div style="height:100px;"></div>
 {% endblock %}

@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block main %}
+<style>
+    body {
+        background: #41a05f; /* Светлый фон */
+        font-family: 'Arial', sans-serif; /* Шрифт */
+        color: #333; /* Цвет текста */
+        text-align: center; /* Центрируем текст */
+    }
+    header{
+        background: #2e6941;
+    }
+    footer{
+        background: #2e6941;
+    }
+    h1 {
+        color: #c32b11; /* Оранжевый цвет для заголовка */
+        font-size: 2.5em; /* Размер заголовка */
+        margin: 20px 0; /* Отступы */
+    }
+    img {
+        border-radius: 15px; /* Скругленные углы для изображений */
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Тень для изображения */
+    }
+    form {
+        background-color: rgba(255, 255, 255, 0.8); /* Полупрозрачный фон для формы */
+        border-radius: 10px; /* Скругленные углы для формы */
+        padding: 20px; /* Отступы внутри формы */
+        display: inline-block; /* Чтобы форма не занимала всю ширину */
+        margin-top: 20px; /* Отступ сверху */
+    }
+    label {
+        font-size: 1.2em; /* Размер текста для метки */
+        color: #333; /* Цвет текста метки */
+    }
+    input[type="text"] {
+        padding: 10px; /* Отступы внутри поля ввода */
+        border: 2px solid #ff4500; /* Оранжевая рамка */
+        border-radius: 5px; /* Скругленные углы для поля ввода */
+        width: 80%; /* Ширина поля ввода */
+        margin-top: 10px; 
+    }
+    button {
+        background-color: #ff4500; 
+        color: white; 
+        border: none; 
+        padding: 10px 20px; 
+        border-radius: 5px; 
+        cursor: pointer; 
+        font-size: 1.2em; 
+        margin-top: 10px; 
+    }
+    button:hover {
+        background-color: #ff6347;
+    }
+</style>
+<div style="display: flex; align-items: center; justify-content: center;"> 
+    <div style="flex: 1; padding-right: 20px; text-align: center;">  
+        <img src="{{ url_for('static', filename='new year7.jpg') }}" alt="Новогоднее изображение" style="max-width: 100%; height: 420px;">
+    </div>
+    <div style="flex: 2; text-align: center;">  
+    <h1>Уточните, что именно вам нравится:</h1>
+    <form method="POST" action="{{ url_for('lab9.preference2', name=name, age=age, gender=gender, preference1=preference1) }}">
+        {% if preference1 == 'something_tasty' %}
+            <button type="submit" name="preference2" value="sweet">Сладкое</button>
+            <button type="submit" name="preference2" value="hearty">Большое</button>
+        {% else %}
+            <button type="submit" name="preference2" value="refined">Утонченное</button>
+            <button type="submit" name="preference2" value="bright">Яркое</button>
+        {% endif %}
+    </form>
+    </div>
+    <div style="flex: 1; padding-left: 20px; text-align: center;">  
+        <img src="{{ url_for('static', filename='new year8.jpg') }}" alt="Новогоднее изображение" style="max-width: 100%; height: auto;">
+    </div>
+</div>
+{% endblock %}

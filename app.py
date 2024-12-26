@@ -7,16 +7,18 @@ from lab5 import lab5
 from lab6 import lab6
 from lab7 import lab7
 from lab8 import lab8
+from lab9 import lab9
 from rgz import rgz
 import os
 from os import path
 from flask_sqlalchemy import SQLAlchemy
 from db import db
-from db.models import users
+from db.models import users,message
 from flask_login import LoginManager
 
 
 app=Flask(__name__)
+
 
 login_manager=LoginManager()
 login_manager.login_view='lab8.login'
@@ -54,6 +56,7 @@ app.register_blueprint(lab5)
 app.register_blueprint(lab6)
 app.register_blueprint(lab7)
 app.register_blueprint(lab8)
+app.register_blueprint(lab9)
 app.register_blueprint(rgz)
 
 
@@ -119,6 +122,7 @@ def start():
         <li><a href="/lab6/" style="color:black;text-shadow: 1px 1px 2px rgba(246, 246, 246, 0.875);">Шестая лабораторная</a></li>
         <li><a href="/lab7/" style="color:black;text-shadow: 1px 1px 2px rgba(246, 246, 246, 0.875);">Седьмая лабораторная</a></li>
         <li><a href="/lab8/" style="color:black;text-shadow: 1px 1px 2px rgba(246, 246, 246, 0.875);">Восьмая лабораторная</a></li>
+        <li><a href="/lab9/" style="color:black;text-shadow: 1px 1px 2px rgba(246, 246, 246, 0.875);">Девятая лабораторная</a></li>
         <li><a href="/rgz/" style="color:black;text-shadow: 1px 1px 2px rgba(246, 246, 246, 0.875);">РГЗ</a></li>
         </ul>
         <div>

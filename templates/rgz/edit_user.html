@@ -1,0 +1,104 @@
+{% extends "base_rgz.html" %}
+
+{% block lab %}Редактировать пользователя{% endblock %}
+
+{% block main %}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #e9ecef; /* Светлый фон, похожий на фон мессенджера */
+        margin: 0;
+        padding: 0px;
+    }
+
+    h1 {
+        text-align: center;
+        color: #343a40; /* Темный цвет для заголовка */
+        margin-bottom: 20px;
+    }
+
+    form {
+        background: #ffffff; /* Белый фон для формы */
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        max-width: 400px; /* Ограничение ширины формы */
+        margin: 0 auto; /* Центрирование формы */
+    }
+
+    label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+        color: #495057; /* Темный цвет для текста меток */
+    }
+
+    input[type="text"], input[type="password"] {
+        width: 100%; /* Полная ширина */
+        padding: 10px;
+        border: 1px solid #ced4da; /* Светло-серый цвет границы */
+        border-radius: 4px;
+        margin-bottom: 15px; /* Отступ между полями */
+        font-size: 16px; /* Размер шрифта */
+    }
+
+    button {
+        background-color: #007bff; /* Цвет кнопки */
+        color: white;
+        border: none;
+        padding: 10px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px; /* Размер шрифта */
+        transition: background-color 0.3s;
+        width: 100%; /* Полная ширина кнопки */
+        margin-bottom: 10px; /* Отступ между кнопками */
+    }
+
+    button:hover {
+        background-color: #0056b3; /* Цвет кнопки при наведении */
+    }
+
+    .back-button {
+        background-color: #6c757d; /* Цвет кнопки "Назад" */
+        color: white;
+        transition: background-color 0.3s;
+    }
+
+    .back-button:hover {
+        background-color: #5a6268; /* Цвет кнопки "Назад" при наведении */
+    }
+
+    .button-container {
+        display: flex;
+        flex-direction: column; /* Вертикальное расположение кнопок */
+        margin-top: 20px; /* Отступ сверху */
+    }
+
+    a {
+        display: inline-block;
+        text-align: center;
+        color: #007bff; /* Цвет ссылки */
+        text-decoration: none;
+        font-size: 16px; /* Размер шрифта */
+    }
+
+    a:hover {
+        text-decoration: underline; /* Подчеркивание ссылки при наведении */
+    }
+</style>
+
+<h1>Редактировать пользователя: {{ user.login }}</h1>
+<form method="POST">
+    <label for="login">Логин:</label>
+    <input type="text" name="login" value="{{ user.login }}" required>
+
+    <label for="password">Пароль (оставьте пустым, если не хотите менять):</label>
+    <input type="password" name="password">
+
+    <div class="button-container">
+        <button type="submit">Сохранить изменения</button>
+        <a href="{{ url_for('rgz.admin_users_list') }}" class="back-button">Назад к списку пользователей</a>
+    </div>
+</form>
+{% endblock %}

@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block main %}
+<style>
+    body {
+        background: #41a05f; 
+        font-family: 'Arial', sans-serif; 
+        color: #333; 
+        text-align: center; 
+    }
+    header{
+        background: #2e6941;
+    }
+    footer{
+        background: #2e6941;
+    }
+    h1 {
+        color: #c32b11; 
+        font-size: 2.5em; 
+        margin: 20px 0; 
+    }
+    img {
+        border-radius: 15px; 
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); 
+    }
+    form {
+        background-color: rgba(255, 255, 255, 0.8);
+        border-radius: 10px; 
+        padding: 20px; 
+        display: inline-block; 
+        margin-top: 20px; 
+    }
+    label {
+        font-size: 1.2em; 
+        color: #333; 
+    }
+    input[type="text"] {
+        padding: 10px; 
+        border: 2px solid #ff4500; 
+        border-radius: 5px; 
+        width: 80%; 
+        margin-top: 10px; 
+    }
+    button {
+        background-color: #ff4500; 
+        color: white;
+        border: none; 
+        padding: 10px 20px; 
+        border-radius: 5px; 
+        cursor: pointer; 
+        font-size: 1.2em; 
+        margin-top: 10px; 
+    }
+    button:hover {
+        background-color: #ff6347; 
+    }
+</style>
+<div style="display: flex; align-items: center; justify-content: center;"> 
+    <div style="flex: 1; padding-right: 20px; text-align: center;">  
+        <img src="{{ url_for('static', filename='new year3.jpg') }}" alt="Новогоднее изображение" style="max-width: 100%; height: 420px;">
+    </div>
+    <div style="flex: 2; text-align: center;">  
+        <h1>Кто вы?</h1>
+        <form method="POST" action="{{ url_for('lab9.gender', name=name, age=age) }}">
+            <button type="submit" name="gender" value="male">Мужчина</button>
+            <button type="submit" name="gender" value="female">Женщина</button>
+        </form>
+    </div>
+    <div style="flex: 1; padding-left: 20px; text-align: center;">  
+        <img src="{{ url_for('static', filename='new year4.jpg') }}" alt="Новогоднее изображение" style="max-width: 100%; height: auto;">
+    </div>
+</div>
+{% endblock %}

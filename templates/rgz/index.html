@@ -3,6 +3,46 @@
 {% block title %}Приветствие{% endblock %}
 
 {% block content %}
-    <h2>Добро пожаловать в Messenger!</h2>
-    <p>Пожалуйста, <a href="/rgz/login">войдите</a> или <a href="{{ url_for('rgz.register') }}">зарегистрируйтесь</a>, чтобы начать общение.</p>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+    }
+    
+    .welcome-container {
+        max-width: 600px;
+        margin: 150px auto;
+        padding: 30px;
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+    
+    h2 {
+        color: #000000;
+        margin-bottom: 20px;
+    }
+    
+    p {
+        color: #000000;
+        font-size: 18px;
+    }
+    
+    .action-link {
+        color: #007bff;
+        text-decoration: none;
+        font-weight: bold;
+    }
+    
+    .action-link:hover {
+        text-decoration: underline;
+    }
+</style>
+    <div class="welcome-container">
+        <h2>Добро пожаловать в MessengGram!</h2>
+        <p>Пожалуйста, <a href="/rgz/login" class="action-link">войдите</a> или <a href="{{ url_for('rgz.register') }}" class="action-link">зарегистрируйтесь</a>, чтобы начать общение.</p>
+    </div>
 {% endblock %}

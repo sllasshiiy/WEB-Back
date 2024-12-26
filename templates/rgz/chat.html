@@ -1,21 +1,129 @@
-{% extends 'base_rgz.html' %}
+{% extends "base_rgz.html" %}
 
-{% block title %}Чат{% endblock %}
+{% block lab %}Чат с пользователем{% endblock %}
 
-{% block content %}
-    <h2>Чат с {{ other_user.username }}</h2>
-    <div id="messages">
-        {% for message in messages %}
-            <div class="message">
-                <strong>{{ message.sender.username }}:</strong> {{ message.content }}
-                <form method="POST" action="{{ url_for('delete_message', message_id=message.id) }}">
-                    <button type="submit">Удалить</button>
+{% block main %}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0px;
+    }
+
+    h1 {
+        color: #ffffff;
+        margin-bottom: 20px;
+    }
+
+    .message-container {
+        max-width: 600px;
+        margin: 20px auto;  /* Исправлено на "9cm" */
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+    }
+
+    .message {
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        position: relative;
+    }
+
+    .received {
+        background-color: #e1f5fe;
+        text-align: left;
+    }
+
+    .sent {
+        background-color: #c8e6c9;
+        text-align: right;
+        margin-left: auto;
+    }
+
+    .message p {
+        margin: 0;
+    }
+
+    .reply-button, .logout-button {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-top: 10px; /* Установлен отступ сверху */
+        text-decoration: none; /* Убираем подчеркивание */
+        display: inline-block; /* Чтобы кнопка выглядела как кнопка */
+    }
+
+    .reply-button:hover, .logout-button:hover {
+        background-color: #0056b3;
+    }
+
+    .delete-button {
+        background-color: #e57373;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-left: 5px;
+    }
+
+    .delete-button:hover {
+        background-color: #c62828;
+    }
+
+    textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        margin-top: 5px;
+    }
+
+    .button-container {
+        text-align: center; /* Центрирование кнопок */
+        margin-top: 20px; /* Отступ сверху для кнопок */
+    }
+</style>
+
+<div class="message-container">
+    <ul>
+        {% for message in received %}
+            <div class="message received">
+                <p><strong>От:</strong> {{ message.sender.login }}</p>
+                <p>{{ message.content }}</p>
+                <form action="{{ url_for('rgz.delete_message', message_id=message.id) }}" method="POST" style="display:inline;">
+                    <button type="submit" class="delete-button">Удалить</button>
+                </form>
+                <button class="reply-button" onclick="document.getElementById('reply-form-{{ message.id }}').style.display='block'">Ответить</button>
+                <form id="reply-form-{{ message.id }}" action="{{ url_for('rgz.reply_message', message_id=message.id) }}" method="POST" style="display:none;">
+                    <textarea name="reply_content" required placeholder="Введите ваш ответ..."></textarea>
+                    <button type="submit" class="reply-button">Отправить ответ</button>
                 </form>
             </div>
         {% endfor %}
+    </ul>
+
+    <ul>
+        {% for message in sent %}
+            <div class="message sent">
+                <p>{{ message.content }} <br> <strong>Кому:</strong> {{ message.receiver.login }}</p>
+                <form action="{{ url_for('rgz.delete_message', message_id=message.id) }}" method="POST" style="display:inline;">
+                    <button type="submit" class="delete-button">Удалить</button>
+                </form>
+            </div>
+        {% endfor %}
+    </ul>
+
+    <div class="button-container">
+        <a href="{{ url_for('rgz.logout') }}" class="logout-button">Выход</a>
+        <a href="{{ url_for('rgz.users_list') }}" class="logout-button">Выбрать пользователя для сообщения</a>
     </div>
-    <form method="POST" action="{{ url_for('send_message', user_id=other_user.id) }}">
-        <textarea name="content" placeholder="Введите ваше сообщение" required></textarea>
-        <button type="submit">Отправить</button>
-    </form>
+</div>
+
 {% endblock %}
